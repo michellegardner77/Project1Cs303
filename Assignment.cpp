@@ -29,6 +29,10 @@ std::ostream& operator << (std::ostream& os, const Assignment& A)
 	return os;
 };
 
+bool Assignment::operator ==(const Assignment& other) {
+	return (assigned_date == other.assigned_date);
+}
+
 bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
 {
 	if (A.due_date <= A.assigned_date) // if due_date is less / equal to to assigned_date
