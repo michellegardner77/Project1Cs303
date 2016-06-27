@@ -17,11 +17,13 @@ private:
 	Date due_date;
 	Date assigned_date;
 	string description;
-	enum status; 
-
-
 
 public:
+	enum status {
+		assigned,
+		completed,
+		late
+	};
 	//setters
 	void set_due_date(Date d_date);
 	void set_assigned_date(Date a_date);
@@ -31,6 +33,9 @@ public:
 	Date get_due_date();
 	Date get_assigned_date();
 	string get_description();
+	
+	
+	friend ostream& operator << (std::ostream& os, const Assignment& A);
 };
 
 #endif
