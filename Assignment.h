@@ -34,8 +34,11 @@ public:
 	Date get_assigned_date();
 	string get_description();
 	
+	bool Assignment::dont_add(list <Assignment> &li, Assignment &A);
 	
+	//overloaded operators
 	friend ostream& operator << (std::ostream& os, const Assignment& A);
+	bool operator ==(const Assignment& other);
 };
 
 #endif
