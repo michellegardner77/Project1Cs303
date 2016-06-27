@@ -38,7 +38,7 @@ bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & as
 	if (A.due_date <= A.assigned_date) // if due_date is less / equal to to assigned_date
 	{return false;}
 
-	//if (date != current_date) // if 
+	//if (date != current_date) // I wasn't sure what this function was supposed to do
 	//{return false;}
 
 	list<Assignment>::iterator iter = li.begin();
