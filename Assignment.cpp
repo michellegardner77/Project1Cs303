@@ -28,3 +28,21 @@ std::ostream& operator << (std::ostream& os, const Assignment& A)
 	os << A.due_date << ", " << A.description << ", " << A.assigned_date << ", " << endl; //A.status << endl;
 	return os;
 };
+
+bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
+{
+	if (A.due_date <= A.assigned_date) // if due_date is less / equal to to assigned_date
+	{return false;}
+
+	//if (date != current_date) // if 
+	//{return false;}
+
+	list<Assignment>::iterator iter = li.begin();
+	while (iter != li.end())
+	{
+		if ((*iter) == A) //if the assigned date has already been used
+			{return false;}
+		iter++;
+	}
+	return true;
+}
