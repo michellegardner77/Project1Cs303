@@ -23,4 +23,8 @@ Date Assignment::get_assigned_date()
 string Assignment::get_description()
 {return description;}
 
-
+std::ostream& operator << (std::ostream& os, const Assignment& A)
+{
+	os << A.due_date << ", " << A.description << ", " << A.assigned_date << ", " << endl; //A.status << endl;
+	return os;
+};
