@@ -258,7 +258,12 @@ public:
 
 		return day_r + month_r + year_r;
 	}
-
+	
+	friend ostream& operator<<(std::ostream& os, const Date& D)
+	{
+		os << D.month << "-" << D.day << "-" << D.year; //A.status << endl;
+		return os;
+	};
 
 	//checks if this date is > another date
 	bool operator >(const Date& other) const{
