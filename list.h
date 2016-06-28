@@ -34,6 +34,8 @@ public:
 #include "list_iterator.h"
 	// Give iterator access to private members of list.
 	friend class iterator;
+#include "Assignment.h"
+	friend class Assignment;
 	
 	// Insert definition of nested class const_iterator here.
 #include "list_const_iterator.h"

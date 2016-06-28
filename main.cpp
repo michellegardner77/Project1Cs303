@@ -194,11 +194,12 @@ char OnDemand() {
 
 
 
-void Assignment::toString() {
+/*void Assignment::toString() {
 	cout << "Due date: " << this->due_date << "\nDescription: " << this->description <<
 		"/nDate assigned: " << this->assigned_date << "\nAssignment Status: " <<
 		this->status << endl;
 }
+*/
 
 //allows use interface to populate original assignment.txt file
 void doPopulate() {

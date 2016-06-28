@@ -8,6 +8,8 @@
 #define _ASSIGNMENT_H_
 
 #include "Date.h"
+#include "list.h"
+#include "iostream"
 
 using namespace std;
 
@@ -18,7 +20,14 @@ private:
 	Date assigned_date;
 	string description;
 
+
+
+
 public:
+	Assignment();
+	Assignment(Date, string, Date string); //due_date, description, assigned_date, status
+	~Assignment();
+
 	enum status {
 		assigned,
 		completed,
@@ -33,12 +42,15 @@ public:
 	Date get_due_date();
 	Date get_assigned_date();
 	string get_description();
-	
+
 	bool Assignment::dont_add(list <Assignment> &li, Assignment &A);
-	
+	void toString();
+
 	//overloaded operators
 	friend ostream& operator << (std::ostream& os, const Assignment& A);
 	bool operator ==(const Assignment& other);
+	
+
 };
 
 #endif
