@@ -10,6 +10,7 @@
 #include "StringTokenizer.h"
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 using namespace std;
 /* class Date wirtten by Mohammad Kuhail
 e-mail: kuhailm@Umkc.edu
@@ -258,7 +259,7 @@ public:
 
 		return day_r + month_r + year_r;
 	}
-	
+
 	friend ostream& operator<<(std::ostream& os, const Date& D)
 	{
 		os << D.month << "-" << D.day << "-" << D.year; //A.status << endl;
