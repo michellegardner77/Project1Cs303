@@ -288,11 +288,26 @@ void myToken() { //also outputs assignment file for reading
 			}
 
 			//now we have the position of the commas so lines can be delimited into 4 separate pieces
-			string due_date = line.substr(0, commaPos[0]);//starts from 0 goes to first index in commaPos[]
-			string description = line.substr(commaPos[0] + 1, commaPos[1] - commaPos[0] - 1); //description starts from first comma plus 1. length is the 2nd comma position minus 1
+			string read_due_date = line.substr(0, commaPos[0]);//starts from 0 goes to first index in commaPos[]
 
+			//need to convert read_due_date to integers from string
+			//int day =
+			//int month =
+			//int year =
+
+			Assignment assign1(assigned_date, due_date, description, status);
+
+
+			//We will then create the Date object with the separated pieces from read_due_date that have been converted to integers
+			//Date due_date(year, month, day);
+
+
+
+			string description = line.substr(commaPos[0] + 1, commaPos[1] - commaPos[0] - 1); //description starts from first comma plus 1. length is the 2nd comma position minus 1
 			string assigned_date = line.substr(commaPos[1] + 1, commaPos[2] - commaPos[1] - 1);
 			string status = line.substr(commaPos[2] + 1);
+
+			add_assignment(check_status(), assign1);
 			arrayOfAssignments.push_back(Assignment(due_date, description, assigned_date, status));
 		}
 
@@ -308,7 +323,7 @@ void displayOutput(vector<Assignment> arrayOfAssignments, int count) {
 		cout << "Due date: " << arrayOfAssignments[i].get_due_date() << endl;
 		cout << "Description: " << arrayOfAssignments[i].get_description() << endl;
 		cout << "Date assigned: " << arrayOfAssignments[i].get_assigned_date() << endl;
-		cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
+		//cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
 		cout << "------------------------------------------------" << endl;
 	}
 
@@ -436,7 +451,7 @@ void saveOutput(vector<Assignment> arrayOfAssignments, int count) {
 		cout << "Due date: " << arrayOfAssignments[i].get_due_date() << ", ";
 		cout << "Description: " << arrayOfAssignments[i].get_description() << ", ";
 		cout << "Date assigned: " << arrayOfAssignments[i].get_assigned_date() << ", ";
-		cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
+		//cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
 		cout << "------------------------------------------------" << endl;
 	}
 }
