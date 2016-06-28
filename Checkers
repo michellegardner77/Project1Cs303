@@ -62,38 +62,31 @@ int Assignment::count_LA(list <Assignment> &li, Assignment &A)
 
 	int countLA = 0;
 	list<Assignment>::iterator itr = li.begin(); // Do I need to state this every time I need to loop through a list?
-	while (iter != li.end)
+	while (itr != li.end)
 	{
 		countLA++;
 	}
 	return countLA;
 }
 
-char Assignment::dont_complete(list <Assignment> &li, Assignment &A)
+string Assignment::dont_complete(list <Assignment> &li, Assignment &A)
 {
-	//i am assuming there are already lists made for late, wip and assigned
+	
 	list<Assignment>::iterator iter = li.begin();
 	while (iter != nullptr)
 	{
 		for (int i = 0; i != li.end; i++)
 		{
-
-			/*if (A != li[i])
+			if (A != li[i]) //check to see if read in assignment is already in "assigned list"
+			{
+				cout << "Don't complete." << endl; //don't complete the assignment
+			}
+			
+			if (date >= current_date || date <= current_date || completetion_date != current_date) //change vars
+				//don't complete if the given assigned or completions dates are invalid. 
 			{
 				cout << "Don't complete." << endl;
 			}
-			if (A != li[i])
-			{
-				cout << "Don't complete." << endl;
-			}
-			if (A != li[i])
-			{
-				cout << "Don't complete." << endl;
-			}
-			if (date >= current_date || date <= current_date || completetion_date != current_date)
-			{
-				cout << "Don't complete." << endl;
-			}*/
 		}
 
 	}
@@ -104,7 +97,7 @@ void Assignment::status(list <Assignment> &li, Assignment &A)
 	list<Assignment>::iterator iter = li.begin();
 	while (iter != nullptr)
 	{
-		for (int i = 0; i != li.end; i++)
+		for (int i = 0; i != li.end; i++) //what I wanted to do was push back "assigned" assignments into an "assigned list"
 		{
 			if (li[i] == "assigned")
 			{
@@ -126,4 +119,3 @@ void Assignment::status(list <Assignment> &li, Assignment &A)
 			}
 		}
 	}
-}
