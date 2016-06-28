@@ -296,7 +296,7 @@ void myToken() { //also outputs assignment file for reading
 			//int month =
 			//int year =
 
-			Assignment assign1(assigned_date, due_date, description, status);
+			Assignment assign1(due_date, description, assigned_date, status); //due_date, description, assigned_date, status
 
 
 			//We will then create the Date object with the separated pieces from read_due_date that have been converted to integers
