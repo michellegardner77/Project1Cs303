@@ -25,7 +25,7 @@ private:
 
 public:
 	Assignment();
-	Assignment(Date, Date, string, enum);
+	Assignment(Date, string, Date string); //due_date, description, assigned_date, status
 	~Assignment();
 
 	enum status {
