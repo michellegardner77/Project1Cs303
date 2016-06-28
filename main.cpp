@@ -308,8 +308,8 @@ void myToken() { //also outputs assignment file for reading
 			string assigned_date = line.substr(commaPos[1] + 1, commaPos[2] - commaPos[1] - 1);
 			string status = line.substr(commaPos[2] + 1);
 
-			add_assignment(check_status(), assign1);
-			arrayOfAssignments.push_back(Assignment(due_date, description, assigned_date, status));
+			add_assignment(check_status(), assign1); //check_status is a placeholder for Michelle's checker for the status
+			
 		}
 
 		inputFile.close();
