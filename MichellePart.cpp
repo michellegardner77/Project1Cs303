@@ -1,66 +1,62 @@
-int Assignment::assignment_date(int m, int d, int y); //to set date (maybe)
+iint Assignment::assignment_date(int m, int d, int y); //to set date (maybe)
 {
 	month = m;
 	day = d;
 	year = y;
 }
 
-int Assignment::late_assignment(int mL, int dL, int yL, Node list)//for late assignments
+bool Assignment::late_assignment(list <Assignment> &li ,Assignment &A)//for late assignments
 {
-	int count = 0;
-	while (list != nullptr) //using getters that don't exists yet
-	{ 
-		count++;
-		list = list.getNext(); //'what's the net node'
-		if (mL > current_month && dL > current_day) // current_month and day declared in main (maybe)
-			{
-				//invalidAssignments.pushback //copy the node's info into a late assignment's list
-			}
 	}
-	return 0; //0 for now
-}
-
-void Assignment::dontAdd(int list, int date, int given_assignment) //i think this is a good prarmeter, random types
-{
-	int count = 0;
-	while (list != nullptr)
+	list iter = li.begin();
+	while (iter != li.end()) 
 	{
-		if (date <= assigned_date) // dont add if date is less / equal to to assigned date
+		if (A.due_date <= A.assigned_date) // I am assuming I'm reading in lists and finding the late assignments
 		{
-			//Maybe add list to don't add
-		}
-		if (date != current_date)
+			return false;
+		if (A.due_date > A.assigned_date)
 		{
-			//add to list to don't add
+			late_assignments.pushback(); //Want to add the late assignment to a list of its' own
+			return true;
 		}
-		for (int i = 0; i != list.end; i++)
-		{
-			if (given_assignment == list[i])
-			{
-				//don't add
-			}
-		}
-		
+		iter++;
 	}
+	bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
+{
+	if (A.due_date <= A.assigned_date) // if due_date is less / equal to to assigned_date
+	{
+		return false;
+	}
+
+	list<Assignment>::iterator iter = li.begin();
+	while (iter != li.end())
+	{
+		if ((*iter) == A) //if the assigned date has already been used
+		{
+			return false;
+		}
+		iter++;
+	}
+	return true;
 }
 
-int Assignment::count_LA(Item& list, int date) // still unsure about type
+
+int Assignment::count_LA(list <Assignment> &li, Assignment &A)
 {
-	
+
 	int countLA = 0;
-	while (list != nullptr) 
+	list<Assignment>::iterator itr = li.begin(); // Do I need to state this every time I need to loop through a list?
+	while (iter != li.end)
 	{
-		if(date >= current_date)
-		{
-			countLA++;
-		}
+		countLA++;
 	}
 	return countLA;
 }
 
-char Assignment::dont_complete(int listItem, int list1, int list2, int list3) // can add more lists for: late, wip, assigned
+char Assignment::dont_complete(list <Assignment> &li, Assignment &A) 
 {//i am assuming there are already lists made for late, wip and assigned
-	while (list1 != nullptr)
+	list<assignment>::iterator iter = li.begin();
+	while (iter != nullptr)
 	{
 		for (int i = 0; i != list1.end; i++)
 		{
@@ -76,18 +72,19 @@ char Assignment::dont_complete(int listItem, int list1, int list2, int list3) //
 			{
 				cout << "Don't complete." << endl;
 			}
-			if(date >= current_date || date <= current_date || completetion_date != current_date)
+			if (date >= current_date || date <= current_date || completetion_date != current_date)
 			{
 				cout << "Don't complete." << endl;
 			}
 		}
-		
+
 	}
 }
 
-void Assignment::status(int list, int list1, int list2, int list3)
+void Assignment::status(list <Assignment> &li, Assignment &A)
 {
-	while(list != nullptr)
+	list<assignment>::iterator iter = li.begin();
+	while (iter!= nullptr)
 	{
 		for (int i = 0; i != list.end; i++)
 		{
@@ -111,4 +108,3 @@ void Assignment::status(int list, int list1, int list2, int list3)
 			}
 		}
 	}
-}
