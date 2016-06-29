@@ -19,24 +19,20 @@ private:
 	Date due_date;
 	Date assigned_date;
 	string description;
-
+	string status;
 
 
 
 public:
 	Assignment();
-	Assignment(Date, string, Date string); //due_date, description, assigned_date, status
+	Assignment(Date, string, Date, string); //due_date, description, assigned_date, status
 	~Assignment();
 
-	enum status {
-		assigned,
-		completed,
-		late
-	};
 	//setters
 	void set_due_date(Date d_date);
 	void set_assigned_date(Date a_date);
 	void set_description(string descr);
+	void set_status(string sta);
 
 	//getters
 	Date get_due_date();

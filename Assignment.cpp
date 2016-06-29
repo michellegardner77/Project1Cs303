@@ -10,7 +10,7 @@ using namespace std;
 
 Assignment::Assignment(){};
 
-Assignment::Assignment(Date assigned_date, Date due_date, string description, enum status)
+Assignment::Assignment(Date due_date, string description, Date assigned_date, string status)//due_date, description, assigned_date, status
 {
 	set_assigned_date(assigned_date);
 	set_due_date(due_date);
@@ -22,26 +22,26 @@ Assignment::Assignment(Date assigned_date, Date due_date, string description, en
 //setters
 void Assignment::set_due_date(Date d_date) //maybe should make this pass in integers to set the date
 {
-	if (d_date.length() > 1)
-		due_date = d_date;
-	else {
-		cout << "Invalid date format\n" << "Please enter mm-dd-yy" << endl;
-		exit(EXIT_FAILURE);
-	}
+	due_date = d_date;
 }
 void Assignment::set_assigned_date(Date a_date)
 {
-	if (a_date.length() > 1)
-		assigned_date = a_date;
-	else {
-		cout << "Invalid date format\n" << "Please enter mm/dd/yy" << endl;
-		exit(EXIT_FAILURE);
-	}
+	assigned_date = a_date;
 }
 void Assignment::set_description(string descr)
 {
 	if (descr.length() > 1)
 		description = descr;
+	else {
+		cout << "Try again" << endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
+void Assignment::set_status(string sta)
+{
+	if (sta.length() > 1)
+		status = sta;
 	else {
 		cout << "Try again" << endl;
 		exit(EXIT_FAILURE);
@@ -104,7 +104,7 @@ bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & as
 
 
 
-
+/*
 void Assignment::status(int list, int list1, int list2, int list3)
 {
 	while (list != nullptr)
@@ -132,3 +132,4 @@ void Assignment::status(int list, int list1, int list2, int list3)
 		}
 	}
 }
+*/
