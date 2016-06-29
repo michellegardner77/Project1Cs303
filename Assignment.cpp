@@ -67,7 +67,7 @@ bool Assignment::operator ==(const Assignment& other) {
 }
 
 
-
+/*
 int Assignment::late_assignment(int mL, int dL, int yL, Node list)//for late assignments
 {
 	int count = 0;
@@ -82,7 +82,7 @@ int Assignment::late_assignment(int mL, int dL, int yL, Node list)//for late ass
 	}
 	return 0; //0 for now
 }
-
+*/
 bool Assignment::dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
 {
 	if (A.due_date <= A.assigned_date) // if due_date is less / equal to to assigned_date

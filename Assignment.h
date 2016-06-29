@@ -26,7 +26,7 @@ private:
 public:
 	Assignment();
 	Assignment(Date, string, Date, string); //due_date, description, assigned_date, status
-	~Assignment();
+	//~Assignment();
 
 	//setters
 	void set_due_date(Date d_date);

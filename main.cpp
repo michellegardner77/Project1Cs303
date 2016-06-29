@@ -13,17 +13,16 @@
 #include "StringTokenizer.h"
 
 #include <vector>
-#include <list>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include <limits>
+#include <sstream>
 
 using namespace std;
 list<Assignment> completed;
 list<Assignment> assigned;
-
 
 void print_list(list <Assignment> &li);
 //Displays all assignments in a particular list
@@ -36,7 +35,7 @@ char OnDemand();
 @returns on a switch case
 */
 
-void displayOutput(vector <Assignment>, int);
+//void displayOutput(vector <Assignment>, int);
 //display the output of the .txt file
 
 void myToken();
@@ -54,7 +53,12 @@ int doCreate();
 int doAppend();
 //allows for each token to be edited in turn by user input
 
+void doEdit(list <Assignment> &li);
+
 void saveOutput(vector <Assignment>, int);
+
+bool dont_add(list <Assignment> &li, Assignment &A); 
+//pass list & assignment to check if that assignment is already in the list
 
 
 
@@ -104,6 +108,12 @@ void add_assignment(list <Assignment> &li, Assignment assn)
 {
 	list<Assignment>::iterator iter = li.begin();
 	
+	if (!dont_add(li, assn))
+	{
+		cout << "Cannot add assignment" << endl;
+		return;
+	}
+
 	if (li.empty()) //empty list
 	{
 		li.push_front(assn);
@@ -128,10 +138,10 @@ char OnDemand() {
 	int number;
 
 	cout << "\n\t\t\t:::::Menu:::::\n" << endl;
-	cout << "1 - Display Assignments\t\t5 - Complete Assignment" << endl;
-	cout << "2 - Add Assignment\t\t6 - Display Number of Late Assignments" << endl;
-	cout << "3 - Edit Due Date\t\t7 - Save" << endl;
-	cout << "4 - Edit Description\t\t8 - Exit" << endl;
+	cout << "1 - Display Assignments\t\t4 - Complete Assignment" << endl;
+	cout << "2 - Add Assignment\t\t5 - Display Number of Late Assignments" << endl;
+	cout << "3 - Edit Assignment\t\t6 - Save" << endl;
+	cout << "\t\t\t7 - Exit" << endl;
 	while (repeat == 'y' || repeat == 'Y') {
 		cout << "\n\nEnter Menu Option " << endl;
 
@@ -147,7 +157,8 @@ char OnDemand() {
 		switch (menuOption) {
 		case 1:
 			cout << "\nNow showing the unformatted contents of assignment.txt: " << endl;
-			doDisplay();
+			print_list(assigned);
+
 			break;
 		case 2:
 			cout << "Enter Assignments" << endl;
@@ -156,9 +167,7 @@ char OnDemand() {
 			doCreate();
 			break;
 		case 3:
-			cout << "Enter date of the assignment you would like to edit" << endl;
-			//find();
-			//doeditDueDate(); //function is below still needs work to pass in correct delimitted position
+			doEdit(assigned);
 			break;
 		case 4:
 			cout << "Edit Description" << endl;
@@ -296,7 +305,7 @@ void myToken() { //also outputs assignment file for reading
 			//int month =
 			//int year =
 
-			Assignment assign1(due_date, description, assigned_date, status); //due_date, description, assigned_date, status
+			//Assignment assign1(due_date, description, assigned_date, status); //due_date, description, assigned_date, status
 
 
 			//We will then create the Date object with the separated pieces from read_due_date that have been converted to integers
@@ -308,23 +317,25 @@ void myToken() { //also outputs assignment file for reading
 			string assigned_date = line.substr(commaPos[1] + 1, commaPos[2] - commaPos[1] - 1);
 			string status = line.substr(commaPos[2] + 1);
 
-			add_assignment(check_status(), assign1); //check_status is a placeholder for Michelle's checker for the status
-			
+			//add_assignment(check_status(), assign1);
+			//arrayOfAssignments.push_back(Assignment(due_date, description, assigned_date, status));
 		}
 
 		inputFile.close();
-		displayOutput(arrayOfAssignments, counter);
+		//displayOutput(arrayOfAssignments, counter);
 	}
 
 }
 
-void displayOutput(vector<Assignment> arrayOfAssignments, int count) {
-	for (int i = 0; i < arrayOfAssignments.size(); i++) {
+/* Old print function
+void displayOutput(list<Assignment> &li, int count) {
+
+	for (int i = 0; i < li.size(); i++) {
 		cout << "Count: " << i + 1 << endl;
 		cout << "Due date: " << arrayOfAssignments[i].get_due_date() << endl;
 		cout << "Description: " << arrayOfAssignments[i].get_description() << endl;
 		cout << "Date assigned: " << arrayOfAssignments[i].get_assigned_date() << endl;
-		//cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
+		cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
 		cout << "------------------------------------------------" << endl;
 	}
 
@@ -332,28 +343,67 @@ void displayOutput(vector<Assignment> arrayOfAssignments, int count) {
 	//	cout << "Current assignment count: " << assignment::getNumOfAssignments() << endl; //did this another way
 
 }
+*/
 
+void doEdit(list <Assignment> &li) { //IN PROGRESS -> Creates a text file, reads in due_date and description, writes to text file
+	list<Assignment>::iterator iter = li.begin();
+	/*Edit an assignment in the assigned list (e.g. edit 
+the due date or the description). 
+You first need to find the assignment with the give
+n assigned date. 
+Don’t edit the assignment in these cases: 
+The given assigned or due dates are invalid. */
 
-void doEditDesc() { //
-	//IN ORDER TO EDIT I WILL NEED THE ABILITY TO FIND OR CHOOSE A PARTICULAR ASSIGNMENT FIRST and I have had no luck
-
-	string due_date, description;
+	string read_assigned_date, read_due_date, read_description;
 	//append files
 	ofstream writer2("assignments.txt", ios::app);
-	//ios::app -- open a stream to append what is there 
-	//ios::binary -- Treat the file as binary
-	// ios::trunc -- default this is what is is if you don't assign it
-	//ios::out -- Open a file to write output
 
 	if (!writer2) { //verifies that the file was created and prints error if not
 		cout << "File doesn't exist" << endl;
 		exit(EXIT_FAILURE);
 	}
 	else { //else if the the file stream is open then you can write to it
-		cout << "Enter append due date: " << endl;
-		cin >> due_date;
-		writer2 << "\n" << due_date << endl; //-- "\n" is new line allows --writes to the file 
-		writer2.close(); //closes the file writer
+		cout << "Enter the assigned date for the assignment you would like to edit (MM-DD-YYYY): " << endl;
+		cin >> read_assigned_date;
+
+		bool edited = false;
+		while (iter != li.end())
+		{
+			if ((*iter).get_assigned_date() == read_assigned_date)
+			{
+				cout << "Enter the new due date (MM-DD-YYYY): " << endl;
+				cin >> read_due_date;
+
+
+				//convert string values to integers
+				int month = stoi(read_due_date.substr(0, read_due_date.find("-")));
+				cout << "Month: " << month << endl;
+				read_due_date.erase(0, (read_due_date.find("-") + 1));
+
+				int day = stoi(read_due_date.substr(0, read_due_date.find("-")));
+				cout << "Day: " << day << endl;
+				read_due_date.erase(0, (read_due_date.find("-") + 1));
+
+				int year = stoi(read_due_date.substr(0,3));
+				cout << "Year: " << year << endl;
+				
+				//set the new due_date
+				Date d_date(year, month, day);
+				(*iter).set_due_date(d_date);
+				//add piece to check for valid date
+
+				edited = true;
+				break;
+			}
+		}
+		if (edited == false)
+		{
+			cout << "That assignment doesn't exist." << endl;
+			return;
+		}
+
+		//writer2 << "\n" << read_due_date << endl; //-- "\n" is new line allows --writes to the file 
+		//writer2.close(); //closes the file writer
 	}
 
 	ofstream writer3("assignments.txt", ios::app);
@@ -364,9 +414,10 @@ void doEditDesc() { //
 	}
 	else { //else if the the file stream is open then you can write to it
 		cout << "Enter new description: " << endl;
-		cin >> description;
-		writer3 << "\n" << description << endl; //-- "\n" is new line allows --writes to the file 
-		writer3.close(); //closes the file writer
+		cin >> read_description;
+		(*iter).set_description(read_description);
+		//writer3 << "\n" << read_description << endl; //-- "\n" is new line allows --writes to the file 
+		//writer3.close(); //closes the file writer
 	}
 
 }
@@ -396,6 +447,9 @@ int doCreate() {
 	string popul2 = "3-10-2015, stacks, 3-1-2015, assigned";
 	string popul3 = "12-31-2015, queues, 12-20-2015, completed";
 
+	Assignment A((Date(2014, 12, 12)), "this is the description1", (Date (2014, 12, 13)), "cancelled1");
+	Assignment B((Date(2015, 12, 12)), "this is the description2", (Date(2015, 12, 13)), "cancelled2");
+	Assignment C((Date(2016, 12, 12)), "this is the description3", (Date(2016, 12, 13)), "cancelled3");
 
 	ofstream writer("assignments.txt"); //outputfile sttream--ofstream writer("filename.txt")creates a file if it doesn't alread exist
 	if (!writer) { //verifies that the file was created and prints error if not
@@ -458,46 +512,21 @@ void saveOutput(vector<Assignment> arrayOfAssignments, int count) {
 }
 
 
-
-/**JUNK--non working template
-void find(vector<assignment> arrayOfAssignments, int i)
+bool dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
 {
-string date;
-cin >> date;
-for (int i = 0; i < arrayOfAssignments.size(); i++) {
-if (arrayOfAssignments[i].getAssignedDate() == date)
+	if (A.get_due_date() <= A.get_assigned_date()) // if due_date is less / equal to assigned_date
+	{
+		return false;
+	}
 
-return i;//returns the index where the date is found
-cout << "Enter new due date: " << endl;
+	list<Assignment>::iterator iter = li.begin();
+	while (iter != li.end())
+	{
+		if ((*iter) == A) //if the assigned date has already been used
+		{
+			return false;
+		}
+		iter++;
+	}
+	return true;
 }
-exit(EXIT_FAILURE);
-}
-*/
-
-
-
-/* JUNK--non working template
-//search the array for the given status
-void lookup_entry(const string& due_date)
-{
-int index = find(due_date);
-if (index != -1) {
-return arrayOfAssignments[index];
-}
-else {
-return assignment();
-}
-}
-*/
-
-
-/*JUNK--non working template
-remove_entry(const string& status){
-int index = find(status);
-if (index == -1 )
-return;
-
-assignments.erase(index);
-
-modified = true;
-}*/
