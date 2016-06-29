@@ -55,6 +55,8 @@ Date Assignment::get_assigned_date()
 {return assigned_date;}
 string Assignment::get_description()
 {return description;}
+string Assignment::get_status()
+{return status;}
 
 std::ostream& operator << (std::ostream& os, const Assignment& A)
 {

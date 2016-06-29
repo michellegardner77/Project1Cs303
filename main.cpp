@@ -158,30 +158,23 @@ char OnDemand() {
 		case 1:
 			cout << "\nNow showing the unformatted contents of assignment.txt: " << endl;
 			print_list(assigned);
-
 			break;
 		case 2:
 			cout << "Enter Assignments" << endl;
-
-			//doPopulate();
 			doCreate();
 			break;
 		case 3:
+			cout << "Edit Assignment" << endl;
 			doEdit(assigned);
 			break;
 		case 4:
-			cout << "Edit Description" << endl;
-			//doEditDesc(); //whacked out below
+			cout << "Complete Assignment" << endl;
+			add_assignment(completed, completed.front);
 			break;
 		case 5:
-			cout << "Complete Assignment" << endl;
-			//compAssign(); not yet created
+			cout << "Number of Late Assignments" << count_LA(completed) << endl;
 			break;
 		case 6:
-			cout << "Number of Late Assignments" << endl;
-			//showNumOfAssign(); not yet created
-			break;
-		case 7:
 			void saveOutput();
 			cout << "File assignment.txt saved" << endl;
 
@@ -189,7 +182,7 @@ char OnDemand() {
 			//	cin >> repeat;
 
 			break;
-		case 8:
+		case 7:
 			return 0;
 		default:
 			cout << "Invalid Input" << endl;
@@ -500,18 +493,6 @@ int doAppend(){
 }
 
 
-void saveOutput(vector<Assignment> arrayOfAssignments, int count) {
-	for (int i = 0; i < arrayOfAssignments.size(); i++) {
-		cout << "Count: " << i + 1 << endl;
-		cout << "Due date: " << arrayOfAssignments[i].get_due_date() << ", ";
-		cout << "Description: " << arrayOfAssignments[i].get_description() << ", ";
-		cout << "Date assigned: " << arrayOfAssignments[i].get_assigned_date() << ", ";
-		//cout << "Assignment status: " << arrayOfAssignments[i].get_status() << "\n" << endl;
-		cout << "------------------------------------------------" << endl;
-	}
-}
-
-
 bool dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to check if that assignment is already in the list
 {
 	if (A.get_due_date() <= A.get_assigned_date()) // if due_date is less / equal to assigned_date
@@ -529,4 +510,19 @@ bool dont_add(list <Assignment> &li, Assignment &A) //pass list & assignment to 
 		iter++;
 	}
 	return true;
+}
+
+
+int count_LA(list <Assignment> &li)
+{
+	int countLA = 0;
+	list<Assignment>::iterator itr = li.begin();
+	while (itr != li.end)
+	{
+		if (((*itr).get_status()) == "late")
+		{
+			countLA++;
+		}
+	}
+	return countLA;
 }

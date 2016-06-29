@@ -38,6 +38,7 @@ public:
 	Date get_due_date();
 	Date get_assigned_date();
 	string get_description();
+	string get_status();
 
 	bool Assignment::dont_add(list <Assignment> &li, Assignment &A);
 	void toString();
