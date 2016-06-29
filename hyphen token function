@@ -1,0 +1,87 @@
+
+//I couldn't get the second date (assigned date) to work
+
+
+
+
+
+
+void hyphenToken() { //also outputs assignment file for reading
+				 //open file for read
+				 //separates strings by delimiting commas
+	ifstream inputFile("assignments.txt");
+	//verify file opened
+	if (inputFile.fail()) { //verifies that the file was created and prints error if not
+		cout << "ERROR opening file: " << endl;
+		exit(EXIT_FAILURE);
+	}
+	else {
+
+		string line;
+
+		vector <assignment> arrayOfDates;
+		int counter = 0; // counts the number of entries
+		while (getline(inputFile, line)) {
+			//split the string by hyphens 
+			//there are 4 hyphens so the array is declared with 4 indices that hold the position of each hyphen
+			int hyphenPos[4];
+			int posIndex = 0;
+			counter++;
+
+
+			for (int j = 0; j < line.length()/4; j++) {
+
+				if (line[j] == '-') {
+
+					hyphenPos[posIndex] = j;
+					posIndex++;
+
+				}
+			}
+
+			//now we have the position of the hyphens so dates can be delimited into 3 separate pieces
+			string month = line.substr(0, hyphenPos[0]);
+			string day = line.substr(hyphenPos[0] + 1, hyphenPos[1] - hyphenPos[0] - 1);
+			string year = line.substr(hyphenPos[1] +1, hyphenPos[1] );
+
+			//string assigned_date_month = line.substr(hyphenPos[2] - 2, hyphenPos[2] - 1);
+			//string assigned_date_day = line.substr(hyphenPos[2] + 1, hyphenPos[2] + 2);
+			//string assigned_date_year = line.substr(hyphenPos[3] +1, hyphenPos[3] +4);
+
+		
+		
+
+			cout << month << "-" << day << "-" << year << endl;
+			//cout << assigned_date_month << "-" << assigned_date_day << "-" << assigned_date_year << endl;
+
+			//arrayOfDates.push_back(assignment(read_due_date, description, read_assigned_date, status));
+		}
+
+		inputFile.close();
+		//displayDueDate(arrayOfDates);
+		//displayAssignedDate(arrayOfDates);
+
+	}
+
+}
+
+
+void displayDueDate(vector<assignment> arrayOfDates) {
+	for (int j = 0; j < arrayOfDates.size(); j++) {
+		cout << "Count: " << j + 1 << endl;
+		cout << "Due date day: " << arrayOfDates[j].getDueDateDay() << endl;
+		cout << "Due date month " << arrayOfDates[j].getDueDateMonth() << endl;
+		cout << "DD year: " << arrayOfDates[j].getDueDateYear() << endl;
+
+	}
+}
+void displayAssignedDate(vector<assignment> arrayOfDates) {
+	for (int j = 0; j < arrayOfDates.size(); j++) {
+		cout << "Assignment day: " << arrayOfDates[j].getAssignedDateDay() << "\n" << endl;
+		cout << "Assignment month: " << arrayOfDates[j].getAssignedDateMonth() << "\n" << endl;
+		cout << "Assignment year: " << arrayOfDates[j].getAssighnedDateYear() << "\n" << endl;
+
+		cout << "------------------------------------------------" << endl;
+	}
+
+}
